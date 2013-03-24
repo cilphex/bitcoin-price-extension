@@ -1,0 +1,134 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+body {
+	position: relative;
+	min-width: 300px;
+	font-family: Helvetica, Arial, Verdana, sans-serif;
+	font-size: 12px;
+	color: #555;
+	background: #f6f6f6;
+}
+body > div {
+	padding: 10px 12px;
+	border-bottom: 1px solid #e8e8e8;
+}
+body > div:last-of-type {
+	border-bottom: none;
+}
+a {
+	text-decoration: none;
+	color: #008fd7;
+}
+a:hover,
+a:active {
+	color: #005c8b;
+	cursor: pointer;
+}
+p {
+	margin: 0;
+}
+p.price {
+	/*font-family: "Aldrich";*/
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+}
+a.refresh {
+	position: absolute;
+	display: block;
+	top: 2px;
+	right: 2px;
+	width: 21px;
+	height: 21px;
+	background: url(/images/glyphicons-halflings.png) -237px -20px no-repeat;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	opacity: 0.6;
+}
+a.refresh:hover {
+	background-color: #fff;
+	border-color: #ddd;
+	opacity: 1.0;
+}
+ul.rates {
+	margin: 10px 0;
+	padding: 0;
+	font-family: courier new;
+	list-style: none;
+}
+ul.rates li {
+}
+ul.rates li div.lastprice {
+	display: -webkit-box;
+	display: box;
+	-webkit-box-orient: horizontal;
+	box-orient: horizontal;
+	padding: 2px 5px;
+}
+ul.rates li div.lastprice:hover {
+	background: #fff;
+	cursor: pointer;
+}
+ul.rates li div.lastprice span {
+	display: block;
+}
+ul.rates li div.lastprice span.key {
+	margin-right: 5px;
+}
+ul.rates li div.lastprice span.dots {
+	-webkit-box-flex: 1;
+	box-flex: 1;
+	border-bottom: 1px dotted #ccc;
+}
+ul.rates li div.lastprice span.symbol {
+	color: #bbb;
+}
+ul.rates li div.lastprice span.major {
+	margin-left: 5px;
+	text-align: right;
+	color: #000;
+}
+ul.rates li div.lastprice span.minor {
+}
+ul.rates li div.lastprice span.zeroes {
+	color: #aaa;
+}
+ul.rates li div.lastprice.up span {
+	font-weight: bold;
+	color: #169f00;
+}
+ul.rates li div.lastprice.down span {
+	font-weight: bold;
+	color: #ac000c;
+}
+ul.rates li.expanded {
+	background: #fff;
+}
+ul.rates li.expanded div.lastprice {
+	font-weight: bold;
+	color: #0494dd;
+}
+ul.rates li.expanded div.lastprice span.dots {
+	border-bottom: 1px dotted #0494dd;
+}
+ul.rates li div.info {
+	display: none;
+	padding: 15px 12px;
+}
+ul.rates li.expanded div.info {
+	display: block;
+}
+div.support p {
+	font-size: 11px;
+	text-align: center;
+}
+div.support p:nth-of-type(1) {
+	margin: 0 0 2px;
+	color: #999;
+}
+div.support p:nth-of-type(2) {
+	color: #000;
+}

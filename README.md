@@ -1,6 +1,6 @@
-bitcoin-price-extension
-=======================
+BitAwesome Chrome Extension
+===========================
 
 A simple extension providing current exchange rates for Bitcoin.
 
-Nothing here yet.
+Currently non-functional.

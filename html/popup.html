@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="BitAwesomeApp" ng-csp>
+	<head>
+		<title>BitAweseome</title>
+		<!--<script src="/js/jquery-1.9.1.min.js"></script>-->
+		<script src="/js/angular.min.js"></script>
+		<script src="/js/popup.js"></script>
+		<!--<link href='http://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet' type='text/css'>-->
+		<link rel="stylesheet" type="text/css" href="/css/popup.css"/>
+	</head>
+
+	<!-- body tag is display: box; -->
+	<body ng-controller="PopupCtrl">
+		<div>
+			<a class="refresh" ng-click="refresh()"></a>
+			<p class="price">Price: {{getCurrentPrice()}}</p>
+			<ul class="rates">
+				<li ng-repeat="(key,value) in data" ng-class="{expanded:value.expanded}">
+					<div class="lastprice" ng-class="getValueChangeClass(key, 'last')" ng-click="value.expanded=!value.expanded">
+						<span class="key">{{key}}</span>
+						<span class="symbol">{{value.symbol}}</span>
+						<span class="dots"></span>
+						<span class="major">{{getValueMajor(value.last)}}</span>
+						<span class="minor">{{getValueMinor(value.last)}}</span>
+						<span class="zeroes">{{getValueZeroes(value.last)}}</span>
+					</div>
+					<div class="info">
+						More info here
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<div class="support">
+			<p>Support development of BitAwesome</p>
+			<p>1EmR2AUiHT46rkhNPRAnYK61Nmn7JUuY3z</p>
+		</div>
+
+	</body>
+</html>
