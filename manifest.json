@@ -1,9 +1,9 @@
 {
 	"manifest_version": 2,
-
 	"name": "BitAwesome",
 	"description": "A simple extension providing current exchange rates for Bitcoin",
 	"version": "0.1",
+	"homepage_url": "http://bitawesome.com",
 
 	"browser_action": {
 		"default_icon": "/images/icon_19.png",
@@ -18,14 +18,15 @@
 
 	"background": {
 		"scripts": [
-			"/js/angular.min.js",
 			"/js/jquery-1.9.1.min.js",
+			"/js/socket.io.js",
 			"/js/background.js"
 		]
 	},
 
 	"permissions": [
+		"*://mtgox.com/*",
+		"*://*.mtgox.com/*",
 		"*://blockchain.info/*"
 	]
-
 }

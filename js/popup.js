@@ -6,8 +6,6 @@ angular.module('controllers', [])
 		var currency = 'USD';
 		var currency_expanded = null;
 
-		window.xx = $scope;
-
 		$scope.data = Background.data;
 		$scope.old_data = Background.old_data;
 

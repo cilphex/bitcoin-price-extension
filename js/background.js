@@ -49,3 +49,26 @@ var Background = {
 };
 
 $(Background.initialize.bind(Background));
+
+
+
+/*
+var c = io.connect('https://socketio.mtgox.com/mtgox?Currency=USD');
+
+c.on('connect', function() {
+	console.log('connected', arguments);
+});
+
+c.on('disconnect', function() {
+	console.log('disconnect', arguments);
+});
+
+c.on('error', function() {
+	console.log('error', arguments);
+});
+
+c.on('message', function(data) {
+	console.log('data received:', data);
+});
+*/
+
