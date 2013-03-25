@@ -2,18 +2,40 @@
 <html ng-app="BitAwesomeApp" ng-csp>
 	<head>
 		<title>BitAweseome</title>
-		<!--<script src="/js/jquery-1.9.1.min.js"></script>-->
+		<script src="/js/jquery-1.9.1.min.js"></script>
 		<script src="/js/angular.min.js"></script>
 		<script src="/js/popup.js"></script>
 		<!--<link href='http://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet' type='text/css'>-->
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="/css/popup.css"/>
 	</head>
 
 	<!-- body tag is display: box; -->
 	<body ng-controller="PopupCtrl">
-		<div>
+		
+		<div class="section services" style="display: none;">
+			<a>Blockchain</a>
+			<a>MtGox</a>
+		</div>
+
+		<div ng-controller="MtGoxCtrl" class="section mtgox">
+			<p class="status" ng-class="getConnectionStatus()">
+				<span class="dot"></span>
+				<span class="text">{{getConnectionStatus()}}</span>
+			</p>
+			<p ng-hide="currentPrice()" class="waiting">...waiting for data...</p>
+			<p ng-show="currentPrice()" class="price" ng-class="priceChange()">
+				<!-- down: ▼ &#9660; up: ▲ &#9650; none: ● &#9679; -->
+				<span>{{currentPrice()}}</span>
+				<span class="change up">&#9650;</span>
+				<span class="change down">&#9660;</span>
+				<span class="change none">&#9679;</span>
+			</p>
+		</div>
+
+		<div ng-controller="BlockchainCtrl" class="section blockchain" style="display: none;">
 			<a class="refresh" ng-click="refresh()"></a>
-			<p class="price">Price: {{getCurrentPrice()}}</p>
+			<p class="price">{{getCurrentPrice()}}</p>
 			<ul class="rates">
 				<li ng-repeat="(key,value) in data" ng-class="{expanded:value.expanded}">
 					<div class="lastprice" ng-class="getValueChangeClass(key, 'last')" ng-click="value.expanded=!value.expanded">
@@ -31,7 +53,7 @@
 			</ul>
 		</div>
 
-		<div class="support">
+		<div class="section support">
 			<p>Support development of BitAwesome</p>
 			<p>1EmR2AUiHT46rkhNPRAnYK61Nmn7JUuY3z</p>
 		</div>

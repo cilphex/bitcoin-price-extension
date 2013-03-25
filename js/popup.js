@@ -1,13 +1,19 @@
-var Background = chrome.extension.getBackgroundPage().Background;
+var Blockchain = chrome.extension.getBackgroundPage().Blockchain;
+var MtGox = chrome.extension.getBackgroundPage().MtGox;
 
 angular.module('controllers', [])
-	.controller('PopupCtrl', function PopupCtrl($rootScope, $scope) {
+	.controller('PopupCtrl', function PopupCtrl($scope) {
 
+		$scope.currency = localStorage.getItem('currency') || 'USD';
+
+	})
+
+	.controller('BlockchainCtrl', function($scope) {
 		var currency = 'USD';
 		var currency_expanded = null;
 
-		$scope.data = Background.data;
-		$scope.old_data = Background.old_data;
+		$scope.data = Blockchain.data;
+		$scope.old_data = Blockchain.old_data;
 
 		$scope.getCurrentPrice = function() {
 			var data = $scope.data[currency];
@@ -46,7 +52,7 @@ angular.module('controllers', [])
 			}
 		}
 		$scope.refresh = function() {
-			Background.poll();
+			Blockchain.poll();
 		}
 
 		chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
@@ -55,8 +61,39 @@ angular.module('controllers', [])
 				$scope.$apply();
 			}
 		});
+	})
 
-	});
+	.controller('MtGoxCtrl', function($scope, $element) {
+
+		$scope.socket = MtGox.connection.socket;
+		$scope.ticker_data = MtGox.ticker_data;
+
+		$scope.getConnectionStatus = function() {
+			var socket = MtGox.connection.socket;
+			if (socket.connected)
+				return 'connected';
+			else if (socket.connecting || socket.reconnecting)
+				return 'connecting';
+			else
+				return 'disconnected';
+		}
+
+		$scope.currentPrice = function() {
+			return $scope.ticker_data[$scope.currency] && $scope.ticker_data[$scope.currency].last.display_short;
+		}
+		$scope.priceChange = function() {
+			return $scope.ticker_data[$scope.currency] && $scope.ticker_data[$scope.currency].last.change;
+		}
+
+		$scope.$watch('getConnectionStatus()', function(new_val, old_val) {
+			$element.find('.status .text').removeClass('fadeout').addClass('fadeout');
+		});
+
+		chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+			if (request == 'mtgox_update')
+				$scope.$apply();
+		});
+	})
 
 angular.module('BitAwesomeApp', ['controllers']);
 
