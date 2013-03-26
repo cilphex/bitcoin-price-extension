@@ -64,21 +64,22 @@ div.services a {
 
 /* MtGox section */
 
-div.mtgox {
+div.gox {
 
 }
-div.mtgox p.status {
+div.gox p.status {
 	position: absolute;
 	top: 1px;
 	left: 3px;
-	font-size: 10px;
-	font-style: italic;
+	font-family: tahoma, sans-serif;
+	font-size: 11px;
+	line-height: 11px;
 	text-shadow: 0 1px #fff;
 	color: #aaa;
 }
-div.mtgox p.status span.dot {
+div.gox p.status span.dot {
 	display: inline-block;
-	margin-right: 2px;
+	margin: 0 2px 1px 0;
 	padding: 0;
 	width: 6px;
 	height: 6px;
@@ -86,18 +87,22 @@ div.mtgox p.status span.dot {
 	background: #ccc;
 	border-radius: 50%;
 }
-div.mtgox p.status.connected span.dot {background: #22ce00;}
-div.mtgox p.status.connecting span.dot {background: #e0ae00;}
-div.mtgox p.status.disconnected span.dot {background: #db0000;}
-div.mtgox p.status span.text {
+div.gox p.status.open span.dot {background: #22ce00;}
+div.gox p.status.connecting span.dot,
+div.gox p.status.closing span.dot {background: #e0ae00;}
+div.gox p.status.closed span.dot {background: #bbb; /*#db0000;*/}
+div.gox p.status span.text {
 
 }
-div.mtgox p.status span.text.fadeout {
+div.gox p.status span.text.faded {
+	opacity: 0.0;
+}
+div.gox p.status span.text.fadeout {
 	opacity: 0.0;
 	/* seconds here are 2.0s duration, 5.0s delay */
 	-webkit-transition: opacity 1.25s 5.0s linear;
 }
-div.mtgox p.waiting {
+div.gox p.waiting {
 	height: 60px;
 	font-family: "Georgia";
 	font-style: italic;
@@ -106,7 +111,7 @@ div.mtgox p.waiting {
 	text-shadow: 0 1px #fff;
 	color: #aaa;
 }
-div.mtgox p.price {
+div.gox p.price {
 	height: 60px;
 	font-family: "Open Sans Condensed", sans-serif;
 	font-size: 0;
@@ -116,20 +121,19 @@ div.mtgox p.price {
 	white-space: nowrap;
 	color: #1b6086;
 }
-div.mtgox p.price span {font-size: 50px;}
-div.mtgox p.price span.up {color: #81a658;}
-div.mtgox p.price span.down {color: #d62e22;}
-div.mtgox p.price span.none {color: #bbb;}
-div.mtgox p.price span.change {
+div.gox p.price span {font-size: 50px;}
+div.gox p.price span.up {color: #81a658;}
+div.gox p.price span.down {color: #d62e22;}
+div.gox p.price span.change {
 	display: none;
-	width: 26px;
 	font-size: 30px;
 	text-align: center;
 	vertical-align: top;
 }
-div.mtgox p.price.up span.up {display: inline-block;}
-div.mtgox p.price.down span.down {display: inline-block;}
-div.mtgox p.price.none span.none {display: inline-block;}
+div.gox p.price.up span.up {display: inline-block;}
+div.gox p.price.down span.down {display: inline-block;}
+div.gox p.price.old span.up,
+div.gox p.price.old span.down {color: #bbb;}
 
 /* Blockchain.info section */
 
