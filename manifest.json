@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "BitAwesome",
-	"description": "A simple extension providing current exchange rates for Bitcoin",
+	"description": "A simple extension providing current exchange rates for Bitcoin.",
 	"version": "0.1.1",
 	"minimum_chrome_version": "16",
 
