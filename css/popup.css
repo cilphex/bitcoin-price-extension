@@ -5,7 +5,7 @@ body {
 }
 body {
 	position: relative;
-	/*min-width: 300px;*/
+	min-width: 300px;
 	font-family: Helvetica, Arial, Verdana, sans-serif;
 	font-size: 12px;
 	color: #555;

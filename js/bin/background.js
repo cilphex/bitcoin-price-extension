@@ -55,6 +55,10 @@ var Blockchain = {
 };
 */
 
+
+
+// Possibly do polling in a web worker?
+
 var Gox = {
 
 	socket: null,
