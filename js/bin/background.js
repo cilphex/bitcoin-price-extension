@@ -69,6 +69,7 @@ var Gox = {
 	retry_countdown: 0,
 	retry_interval: null,
 
+	currency: localStorage.getItem('currency') || 'USD',
 	ticker_data: {},
 
 	initialize: function() {
@@ -92,7 +93,6 @@ var Gox = {
 		chrome.extension.sendMessage({type: 'countdown', countdown: null});
 	},
 	retryCountdown: function() {
-		//Util.log('retrying in ' + this.retry_countdown + ' seconds');
 		Util.log('retryCountdown');
 		if (!this.retry_interval) {
 			Util.log('no interval, so make one');
@@ -105,7 +105,6 @@ var Gox = {
 			this.connect();
 			return;
 		}
-		
 		chrome.extension.sendMessage({type: 'countdown', countdown: this.retry_countdown});
 		this.retry_countdown = this.retry_countdown - 1;
 		Util.log('tick:', this.retry_countdown);
@@ -127,9 +126,7 @@ var Gox = {
 		if (this.retry) {
 			if (this.retry_seconds < 64)
 				this.retry_seconds = this.retry_seconds * 2;
-			//setTimeout(this.connect.bind(this), this.retry_seconds * 1000);
 			this.retry_countdown = this.retry_seconds;
-			//this.retry_interval = setInterval(this.retryCountdown.bind(this), 1000);
 			this.retryCountdown();
 		}
 		chrome.extension.sendMessage({type: 'update'});
@@ -144,18 +141,10 @@ var Gox = {
 		chrome.extension.sendMessage({type: 'update'});
 	},
 
-	opSubscribe: function(data) {
-		// Do nothing
-	},
-	opUnsubscribe: function(data) {
-		// Do nothing
-	},
-	opRemark: function(data) {
-		// Do nothing
-	},
-	opResult: function(data) {
-		// Do nothing
-	},
+	opSubscribe: function(data) {},
+	opUnsubscribe: function(data) {},
+	opRemark: function(data) {},
+	opResult: function(data) {},
 
 	opPrivate: function(data) {
 		this['private' + Util.capitalize(data.private)](data);
@@ -175,23 +164,27 @@ var Gox = {
 			this.ticker_data[currency][key] = data.ticker[key];
 			if (old_val && parseInt(old_val.value_int) < this.ticker_data[currency][key].value_int) {
 				this.ticker_data[currency][key].change = 'up';
+				this.ticker_data[currency][key].movement = 1;
 			}
 			else if (old_val && parseInt(old_val.value_int) > this.ticker_data[currency][key].value_int) {
 				this.ticker_data[currency][key].change = 'down';
+				this.ticker_data[currency][key].movement = -1;
 			}
 			else {
-				this.ticker_data[currency][key].change = ((old_val && old_val.change) || '') + ' old';
+				this.ticker_data[currency][key].change = ((old_val && old_val.change) || '').replace(/\s*old/g,'') + ' old';
+				this.ticker_data[currency][key].movement = 0;
 			}
 		}
+
+		this.updateBadge();
 	},
-	privateTrade: function(data) {
-		//Util.log('trade', data);
-	},
-	privateDepth: function(data) {
-		//Util.log('depth', data);
-	},
-	privateResult: function(data) {
-		//Util.log('result', data);
+	privateTrade: function(data) {},
+	privateDepth: function(data) {},
+	privateResult: function(data) {},
+
+	updateBadge: function() {
+		chrome.browserAction.setBadgeText({text: this.ticker_data[this.currency].last.value.substr(0,4)});
+		chrome.browserAction.setBadgeBackgroundColor({color: ['#da000f','#aaa','#00c700'][this.ticker_data[this.currency].last.movement+1]});
 	}
 
 };

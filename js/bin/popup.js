@@ -78,10 +78,10 @@ angular.module('controllers', [])
 		}
 
 		$scope.currentPrice = function() {
-			return $scope.ticker_data[$scope.currency] && $scope.ticker_data[$scope.currency].last.display_short;
+			return $scope.ticker_data[Gox.currency] && $scope.ticker_data[Gox.currency].last.display_short;
 		}
-		$scope.priceChange = function() {
-			return $scope.ticker_data[$scope.currency] && $scope.ticker_data[$scope.currency].last.change;
+		$scope.priceDirection = function() {
+			return $scope.ticker_data[Gox.currency] && $scope.ticker_data[Gox.currency].last.change;
 		}
 
 		$scope.$watch('getConnectionStatus()', function(new_val, old_val) {

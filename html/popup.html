@@ -38,7 +38,7 @@
 				</span>
 			</p>
 			<p ng-hide="currentPrice()" class="waiting">...waiting for data...</p>
-			<p ng-show="currentPrice()" class="price" ng-class="priceChange()">
+			<p ng-show="currentPrice()" class="price" ng-class="priceDirection()">
 				<!-- down: ▼ &#9660; up: ▲ &#9650; none: ● &#9679; -->
 				<span>{{currentPrice()}}</span>
 				<span class="change up">&#9650;</span>
