@@ -188,10 +188,10 @@ var Gox = {
 	privateResult: function(data) {},
 
 	updateBadge: function() {
-		chrome.browserAction.setBadgeText({text: this.ticker_data[this.currency].last.value.substr(0,4)});
+		chrome.browserAction.setBadgeText({text: this.ticker_data[this.currency].last.value.substr(0,4).replace(/\.$/,'')});
 		chrome.browserAction.setBadgeBackgroundColor({color: ['#da000f','#aaa','#00c700'][this.ticker_data[this.currency].last.movement+1]});
 	}
-
+	
 };
 
 $(function() {
