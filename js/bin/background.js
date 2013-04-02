@@ -130,6 +130,8 @@ var Gox = {
 			this.retryCountdown();
 		}
 		chrome.extension.sendMessage({type: 'update'});
+		chrome.browserAction.setBadgeBackgroundColor({color: 'rgba(230,226,16,1.0)'});
+
 	},
 	onSocketError: function(error) {
 		Util.log('socket error:', error);
@@ -142,7 +144,10 @@ var Gox = {
 	},
 
 	opSubscribe: function(data) {},
-	opUnsubscribe: function(data) {},
+	opUnsubscribe: function(data) {
+		console.log('unsubscribe');
+		chrome.browserAction.setBadgeBackgroundColor({color: 'rgba(214,153,21,1.0)'});
+	},
 	opRemark: function(data) {},
 	opResult: function(data) {},
 
