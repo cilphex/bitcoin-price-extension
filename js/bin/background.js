@@ -1,6 +1,6 @@
 // Utilities
 var Util = {
-	devmode: true,
+	devmode: false,
 	currencies: ['USD', 'AUD', 'CAD', 'CHF', 'CNY', 'DKK', 'EUR', 'GBP', 'HKD', 'JPY', 'NZD', 'PLN', 'RUB', 'SEK', 'SGD', 'THB'],
 	capitalize: function(text) {
 		return text.charAt(0).toUpperCase() + text.slice(1)
