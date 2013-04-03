@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="BitAwesomeApp" ng-csp>
+<html ng-app="OptionsApp" ng-csp>
 	<head>
 		<title>BitAweseome Options</title>
 		<script src="/js/lib/jquery-1.9.1.min.js"></script>
@@ -9,12 +9,28 @@
 		<!-- eventually, get this font packaged with the extension -->
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="/css/options.css"/>
+		<link rel="icon" href="/images/icon_16.png" type="image/png" />
 	</head>
 
 	<!-- body tag is display: box; -->
 	<body ng-controller="OptionsCtrl">
 
-		<p>Nothing here yet</p>
+		<div class="right">
+			<div class="section">
+				<p>BitAwesome is free and open source. You can support development by donating to:</p>
+				<p class="notice">1EmR2AUiHT46rkhNPRAnYK61Nmn7JUuY3z</p>
+			</div>
+			<a class="block" href="https://chrome.google.com/webstore/detail/bitawesome/ckifmdkkholcahnckooffbnnkcplflle">Rate this extension</a>
+			<a class="block" href="https://github.com/cilphex/bitcoin-price-extension">Browse the source</a>
+			<a class="block" href="mailto:cilphex@gmail.com.com">Contact the developer</a>
+		</div>
+
+		<h2>Options</h2>
+		<ul id="options" class="options">
+			<li>
+				<label><input type="checkbox"> Show price badge on icon</label>
+			</li>
+		</ul>
 
 	</body>
 </html>
