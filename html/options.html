@@ -15,22 +15,38 @@
 	<!-- body tag is display: box; -->
 	<body ng-controller="OptionsCtrl">
 
-		<div class="right">
-			<div class="section">
-				<p>BitAwesome is free and open source. You can support development by donating to:</p>
-				<p class="notice">1EmR2AUiHT46rkhNPRAnYK61Nmn7JUuY3z</p>
+		<div class="content">
+
+			<!-- Left column -->
+			<div>
+				<h1>BitAwesome</h1>
+				<h2>Options</h2>
+				<ul id="options" class="options">
+					<li>
+						<label><input type="checkbox"> Show price badge on icon</label>
+					</li>
+				</ul>
 			</div>
-			<a class="block" href="https://chrome.google.com/webstore/detail/bitawesome/ckifmdkkholcahnckooffbnnkcplflle">Rate this extension</a>
-			<a class="block" href="https://github.com/cilphex/bitcoin-price-extension">Browse the source</a>
-			<a class="block" href="mailto:cilphex@gmail.com.com">Contact the developer</a>
+
+			<!-- Right column -->
+			<div class="right">
+				<div class="section">
+					<p>BitAwesome is free and open source. You can support development by donating to:</p>
+					<p class="notice">1EmR2AUiHT46rkhNPRAnYK61Nmn7JUuY3z</p>
+				</div>
+				<div class="section">
+					<p class="address"><img src="/images/address.png"/></p>
+				</div>
+				<a class="block" href="https://chrome.google.com/webstore/detail/bitawesome/ckifmdkkholcahnckooffbnnkcplflle">Rate this extension</a>
+				<!--<a class="block" href="http://bitawesome.com">BitAwesome.com</a>-->
+				<a class="block" href="https://github.com/cilphex/bitcoin-price-extension">Browse the source</a>
+				<a class="block" href="mailto:cilphex@gmail.com.com">Contact the developer</a>
+			</div>
+
 		</div>
 
-		<h2>Options</h2>
-		<ul id="options" class="options">
-			<li>
-				<label><input type="checkbox"> Show price badge on icon</label>
-			</li>
-		</ul>
-
 	</body>
+
+	<footer>
+	</footer>
 </html>

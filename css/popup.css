@@ -212,16 +212,20 @@ div.blockchain ul.rates li.expanded div.info {
 	display: block;
 }
 
-/* "Support Us" footer */
+/* Options link */
 
-div.support p {
+div.options {
+	padding: 0;
+}
+div.options a {
+	display: block;
+	margin: 0 auto;
 	font-size: 11px;
+	line-height: 26px;
 	text-align: center;
+	color: #888;
+	border-radius: 3px;
 }
-div.support p:nth-of-type(1) {
-	margin: 0 0 2px;
-	color: #999;
-}
-div.support p:nth-of-type(2) {
-	color: #000;
+div.options a:hover {
+	background: #D1E8F7;
 }
