@@ -8,12 +8,9 @@ angular.module('OptionsApp', [])
 
 		$scope.settings = Settings.vals;
 
-		//$scope.display_badge = localStorage.getItem('display_badge') === 'true';
-
+		// Find a way to easily do this for all settings
 		$scope.$watch('settings.badge.value', function(new_val, old_val) {
-			//localStorage.setItem('display_badge', new_val);
 			Settings.set('badge', new_val);
-			Util.log('badge change: ', new_val, old_val);
 		});
 
 	});

@@ -63,7 +63,12 @@ var Settings = {
 			def: true,
 			label: "Show price badge on icon",
 			value: null
-		}
+		}/*,
+		currency: {
+			def: 'USD',
+			label: "Currency",
+			value: null
+		}*/
 	},
 	initialize: function() {
 		for (var key in this.vals) {
@@ -93,6 +98,7 @@ var Gox = {
 	retry_countdown: 0,
 	retry_interval: null,
 
+	// Use settings.currency
 	currency: localStorage.getItem('currency') || 'USD',
 	ticker_data: {},
 

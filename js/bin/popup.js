@@ -5,6 +5,7 @@ var Gox = chrome.extension.getBackgroundPage().Gox;
 angular.module('controllers', [])
 
 	.controller('PopupCtrl', function PopupCtrl($scope) {
+		// Use settings.currency
 		$scope.currency = localStorage.getItem('currency') || 'USD';
 	})
 
