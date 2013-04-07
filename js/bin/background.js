@@ -58,12 +58,20 @@ var Blockchain = {
 
 
 var Settings = {
-	names: ['badge'],
-	vals: {},
+	vals: {
+		badge: {
+			def: true,
+			label: "Show price badge on icon",
+			value: null
+		}
+	},
 	initialize: function() {
-		for (var i = 0; i < this.names.length; i++) {
-			var name = this.names[i];
-			this.vals[name] = localStorage.getItem(name) === 'true';
+		for (var key in this.vals) {
+			var stored_val = localStorage.getItem(key);
+			if (stored_val === null)
+				this.vals[key].value = this.vals[key].def;
+			else
+				this.vals[key].value = stored_val === 'true';
 		}
 	},
 	set: function(name, value) {
@@ -222,9 +230,12 @@ var Gox = {
 	privateResult: function(data) {},
 
 	updateBadge: function() {
-		if (Settings.vals.badge && this.ticker_data) {
+		if (Settings.vals.badge && this.ticker_data[this.currency]) {
 			chrome.browserAction.setBadgeText({text: this.ticker_data[this.currency].last.value.substr(0,4).replace(/\.$/,'')});
 			chrome.browserAction.setBadgeBackgroundColor({color: ['#da000f','#aaa','#00c700'][this.ticker_data[this.currency].last.movement+1]});
+		}
+		else {
+			Util.log('tried updateBadge but badge turned off or no ticker data');
 		}
 	}
 	

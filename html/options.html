@@ -21,9 +21,9 @@
 			<div>
 				<h1>BitAwesome</h1>
 				<h2>Options</h2>
-				<ul id="options" class="options">
-					<li>
-						<label><input type="checkbox" ng-model="settings.badge" ng-checked="settings.badge"> Show price badge on icon</label>
+				<ul class="options">
+					<li ng-repeat="(key,val) in settings">
+						<label><input type="checkbox" ng-model="settings[key].value" ng-checked="settings[key].value"/>{{settings[key].label}}</label>
 					</li>
 				</ul>
 			</div>
