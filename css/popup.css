@@ -217,15 +217,7 @@ div.blockchain ul.rates li.expanded div.info {
 div.options {
 	padding: 0;
 }
-div.options a {
-	display: block;
-	margin: 0 auto;
-	font-size: 11px;
+div.options p {
 	line-height: 26px;
 	text-align: center;
-	color: #888;
-	border-radius: 3px;
-}
-div.options a:hover {
-	background: #D1E8F7;
 }

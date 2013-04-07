@@ -1,6 +1,6 @@
 // Utilities
 var Util = {
-	devmode: true,
+	devmode: false,
 	currencies: ['USD', 'AUD', 'CAD', 'CHF', 'CNY', 'DKK', 'EUR', 'GBP', 'HKD', 'JPY', 'NZD', 'PLN', 'RUB', 'SEK', 'SGD', 'THB'],
 	capitalize: function(text) {
 		return text.charAt(0).toUpperCase() + text.slice(1)
@@ -236,7 +236,7 @@ var Gox = {
 	privateResult: function(data) {},
 
 	updateBadge: function() {
-		if (Settings.vals.badge && this.ticker_data[this.currency]) {
+		if (Settings.vals.badge.value && this.ticker_data[this.currency]) {
 			chrome.browserAction.setBadgeText({text: this.ticker_data[this.currency].last.value.substr(0,4).replace(/\.$/,'')});
 			chrome.browserAction.setBadgeBackgroundColor({color: ['#da000f','#aaa','#00c700'][this.ticker_data[this.currency].last.movement+1]});
 		}
