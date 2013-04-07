@@ -1,6 +1,6 @@
 // Utilities
 var Util = {
-	devmode: false,
+	devmode: true,
 	currencies: ['USD', 'AUD', 'CAD', 'CHF', 'CNY', 'DKK', 'EUR', 'GBP', 'HKD', 'JPY', 'NZD', 'PLN', 'RUB', 'SEK', 'SGD', 'THB'],
 	capitalize: function(text) {
 		return text.charAt(0).toUpperCase() + text.slice(1)
@@ -57,6 +57,22 @@ var Blockchain = {
 
 
 
+var Settings = {
+	names: ['badge'],
+	vals: {},
+	initialize: function() {
+		for (var i = 0; i < this.names.length; i++) {
+			var name = this.names[i];
+			this.vals[name] = localStorage.getItem(name) === 'true';
+		}
+	},
+	set: function(name, value) {
+		localStorage.setItem(name, value);
+		chrome.extension.sendMessage({type: 'setting', name: name, value: value});
+	}
+};
+
+
 // Possibly do polling in a web worker?
 
 var Gox = {
@@ -73,7 +89,25 @@ var Gox = {
 	ticker_data: {},
 
 	initialize: function() {
+		this.setupListeners();
 		this.connect();
+	},
+
+	setupListeners: function() {
+		chrome.extension.onMessage.addListener(this.onMessage.bind(this));
+	},
+
+	onMessage: function(request, sender, sendResponse) {
+		switch(request.type) {
+			case 'setting':
+				if (request.name == 'badge') {
+					if (request.value)
+						this.updateBadge()
+					else
+						chrome.browserAction.setBadgeText({text: ''});
+				}
+			break;
+		}
 	},
 
 	connect: function() {
@@ -130,7 +164,7 @@ var Gox = {
 			this.retryCountdown();
 		}
 		chrome.extension.sendMessage({type: 'update'});
-		chrome.browserAction.setBadgeBackgroundColor({color: 'rgba(230,226,16,1.0)'});
+		chrome.browserAction.setBadgeBackgroundColor({color: '#E6E210'});
 
 	},
 	onSocketError: function(error) {
@@ -146,7 +180,7 @@ var Gox = {
 	opSubscribe: function(data) {},
 	opUnsubscribe: function(data) {
 		console.log('unsubscribe');
-		chrome.browserAction.setBadgeBackgroundColor({color: 'rgba(214,153,21,1.0)'});
+		chrome.browserAction.setBadgeBackgroundColor({color: '#D69915'});
 	},
 	opRemark: function(data) {},
 	opResult: function(data) {},
@@ -188,13 +222,16 @@ var Gox = {
 	privateResult: function(data) {},
 
 	updateBadge: function() {
-		chrome.browserAction.setBadgeText({text: this.ticker_data[this.currency].last.value.substr(0,4).replace(/\.$/,'')});
-		chrome.browserAction.setBadgeBackgroundColor({color: ['#da000f','#aaa','#00c700'][this.ticker_data[this.currency].last.movement+1]});
+		if (Settings.vals.badge && this.ticker_data) {
+			chrome.browserAction.setBadgeText({text: this.ticker_data[this.currency].last.value.substr(0,4).replace(/\.$/,'')});
+			chrome.browserAction.setBadgeBackgroundColor({color: ['#da000f','#aaa','#00c700'][this.ticker_data[this.currency].last.movement+1]});
+		}
 	}
 	
 };
 
 $(function() {
 	//Blockchain.initialize();
+	Settings.initialize();
 	Gox.initialize();
 });
