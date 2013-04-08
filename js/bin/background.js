@@ -96,13 +96,13 @@ var Gox = {
 		chrome.extension.sendMessage({type: 'countdown', countdown: null});
 	},
 	retryCountdown: function() {
-		Util.log('retryCountdown');
+		util.log('retryCountdown');
 		if (!this.retry_interval) {
-			Util.log('no interval, so make one');
+			util.log('no interval, so make one');
 			this.retry_interval = setInterval(this.retryCountdown.bind(this), 1000);
 		}
 		else if (this.retry_countdown == 0) {
-			Util.log('countdown over');
+			util.log('countdown over');
 			clearInterval(this.retry_interval);
 			this.retry_interval = null;
 			this.connect();
@@ -110,7 +110,7 @@ var Gox = {
 		}
 		chrome.extension.sendMessage({type: 'countdown', countdown: this.retry_countdown});
 		this.retry_countdown = this.retry_countdown - 1;
-		Util.log('tick:', this.retry_countdown);
+		util.log('tick:', this.retry_countdown);
 	},
 
 	getConnectionStatus: function() {
@@ -120,12 +120,12 @@ var Gox = {
 	},
 
 	onSocketOpen: function(e) {
-		Util.log('socket opened');
+		util.log('socket opened');
 		this.retry_seconds = 1;
 		chrome.extension.sendMessage({type: 'update'});
 	},
 	onSocketClose: function() {
-		Util.log('socket close');
+		util.log('socket close');
 		if (this.retry) {
 			if (this.retry_seconds < 64)
 				this.retry_seconds = this.retry_seconds * 2;
@@ -137,7 +137,7 @@ var Gox = {
 
 	},
 	onSocketError: function(error) {
-		Util.log('socket error:', error);
+		util.log('socket error:', error);
 		chrome.extension.sendMessage({type: 'update'});
 	},
 	onSocketMessage: function(e) {
@@ -146,20 +146,33 @@ var Gox = {
 		chrome.extension.sendMessage({type: 'update'});
 	},
 
-	opSubscribe: function(data) {},
+	opSubscribe: function(data) {
+		util.log('subscribe', data);
+	},
 	opUnsubscribe: function(data) {
-		console.log('unsubscribe');
+		util.log('unsubscribe');
 		chrome.browserAction.setBadgeBackgroundColor({color: '#D69915'});
 	},
-	opRemark: function(data) {},
-	opResult: function(data) {},
+	opRemark: function(data) {
+		util.log('remark', data);
+	},
+	opResult: function(data) {
+		util.log('result', data);
+	},
 
 	opPrivate: function(data) {
-		this['private' + Util.capitalize(data.private)](data);
+		var private_listeners = ['ticker'];
+		if (private_listeners.indexOf(data.private) != -1)
+			this['private' + Util.capitalize(data.private)](data);
+		else
+			this.socket.send(JSON.stringify({
+				'op':'unsubscribe',
+				'channel':data.channel
+			}));
 	},
 
 	privateTicker: function(data) {
-		Util.log('ticker', data);
+		//Util.log('ticker', data);
 		// Ticker contains:
 		// avg, buy, high, last, last_all, last_local, last_orig, low, sell, vwop
 		// now: timestamp, voll: unique check it out
