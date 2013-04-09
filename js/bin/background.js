@@ -1,6 +1,6 @@
 // Utilities
 var Util = util = {
-	devmode: false,
+	devmode: true,
 	currencies: ['USD', 'AUD', 'CAD', 'CHF', 'CNY', 'DKK', 'EUR', 'GBP', 'HKD', 'JPY', 'NZD', 'PLN', 'RUB', 'SEK', 'SGD', 'THB'],
 	capitalize: function(text) {
 		return text.charAt(0).toUpperCase() + text.slice(1)
@@ -13,25 +13,28 @@ var Util = util = {
 
 
 var Settings = {
-	vals: {
+	bools: {
 		badge: {
 			def: true,
 			label: "Show price badge on icon",
 			value: null
-		}/*,
+		}
+	},
+	selects: {
 		currency: {
 			def: 'USD',
 			label: "Currency",
+			options: util.currencies,
 			value: null
-		}*/
+		}
 	},
 	initialize: function() {
-		for (var key in this.vals) {
+		for (var key in this.bools) {
 			var stored_val = localStorage.getItem(key);
 			if (stored_val === null)
-				this.vals[key].value = this.vals[key].def;
+				this.bools[key].value = this.bools[key].def;
 			else
-				this.vals[key].value = stored_val === 'true';
+				this.bools[key].value = stored_val === 'true';
 		}
 	},
 	set: function(name, value) {
@@ -134,7 +137,6 @@ var Gox = {
 		}
 		chrome.extension.sendMessage({type: 'update'});
 		chrome.browserAction.setBadgeBackgroundColor({color: '#E6E210'});
-
 	},
 	onSocketError: function(error) {
 		util.log('socket error:', error);
@@ -146,19 +148,12 @@ var Gox = {
 		chrome.extension.sendMessage({type: 'update'});
 	},
 
-	opSubscribe: function(data) {
-		util.log('subscribe', data);
-	},
+	opSubscribe: function(data) {},
 	opUnsubscribe: function(data) {
-		util.log('unsubscribe');
 		chrome.browserAction.setBadgeBackgroundColor({color: '#D69915'});
 	},
-	opRemark: function(data) {
-		util.log('remark', data);
-	},
-	opResult: function(data) {
-		util.log('result', data);
-	},
+	opRemark: function(data) {},
+	opResult: function(data) {},
 
 	opPrivate: function(data) {
 		var private_listeners = ['ticker'];
@@ -172,7 +167,7 @@ var Gox = {
 	},
 
 	privateTicker: function(data) {
-		//Util.log('ticker', data);
+		util.log('ticker', data);
 		// Ticker contains:
 		// avg, buy, high, last, last_all, last_local, last_orig, low, sell, vwop
 		// now: timestamp, voll: unique check it out
@@ -204,7 +199,7 @@ var Gox = {
 	privateResult: function(data) {},
 
 	updateBadge: function() {
-		if (Settings.vals.badge.value && this.ticker_data[this.currency]) {
+		if (Settings.bools.badge.value && this.ticker_data[this.currency]) {
 			chrome.browserAction.setBadgeText({text: this.ticker_data[this.currency].last.value.substr(0,4).replace(/\.$/,'')});
 			chrome.browserAction.setBadgeBackgroundColor({color: ['#da000f','#aaa','#00c700'][this.ticker_data[this.currency].last.movement+1]});
 		}

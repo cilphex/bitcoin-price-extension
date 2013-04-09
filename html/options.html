@@ -21,9 +21,18 @@
 			<div>
 				<h1>BitAwesome</h1>
 				<h2>Settings</h2>
+				
+				<h3>Selects</h3>
+				<ul>
+					<li ng-repeat="(key,val) in settings.selects">
+						select: {{key}}
+					</li>
+				</ul>
+
+				<h3>Bools</h3>
 				<ul class="options">
-					<li ng-repeat="(key,val) in settings">
-						<label><input type="checkbox" ng-model="settings[key].value" ng-checked="settings[key].value"/>{{settings[key].label}}</label>
+					<li ng-repeat="(key,val) in settings.bools">
+						<label><input type="checkbox" ng-model="settings.bools[key].value" ng-checked="settings.bools[key].value"/>{{settings.bools[key].label}}</label>
 					</li>
 				</ul>
 			</div>
