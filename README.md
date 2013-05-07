@@ -11,5 +11,3 @@ This source may or may not contain code or features not yet available
 in the Web Store version.
 
 [Chrome Web Store Link](https://chrome.google.com/webstore/detail/bitawesome/ckifmdkkholcahnckooffbnnkcplflle)
-
-word
